@@ -1,8 +1,14 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
 import { fetchItems } from '../actions/itemsActions'
-
+import SimpleTable  from './DataTable'
 class Items extends Component { 
+
+    constructor(props){
+        super(props);
+
+    this.goToItem = this.goToItem.bind(this)
+    }
 
     componentWillMount() { 
         this.props.fetchItems();
@@ -14,16 +20,17 @@ class Items extends Component {
         }
     }
 
+    goToItem(name){
+        console.log(name)
+    }
     render(){
-        const items = this.props.items.map(item => (
-            <div key={item.name}>
-                <h3>{item.name}</h3>
-            </div>
-        )) 
+        const items = this.props.items
         return(
             <div>
-                Items
-               {items}
+                <SimpleTable 
+                data={items}
+                onRowClick={this.goToItem}
+                />
             </div>
         );
     }
