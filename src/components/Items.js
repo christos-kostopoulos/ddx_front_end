@@ -15,7 +15,6 @@ class Items extends Component {
     }
 
     render(){
-        console.log(this.props)
         const items = this.props.items.map(item => (
             <div key={item.name}>
                 <h3>{item.name}</h3>
