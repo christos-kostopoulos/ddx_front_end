@@ -1,6 +1,6 @@
 import React, {Component} from 'react'
 import { connect } from 'react-redux'
-import { fetchItems } from '../actions/itemsActions'
+import { fetchItems,fetchItem } from '../actions/itemsActions'
 import SimpleTable  from './DataTable'
 class Items extends Component { 
 
@@ -22,7 +22,10 @@ class Items extends Component {
 
     goToItem(name){
         console.log(name)
+        this.props.fetchItem(name)
+        
     }
+    
     render(){
         const items = this.props.items
         return(
@@ -39,6 +42,7 @@ class Items extends Component {
 
 const mapStateToProps = state => ({
     items:state.items.items,
-    newItem:state.items.item 
+    newItem:state.items.item, 
+    item:state.items.item
 })
-export default connect(mapStateToProps,{fetchItems})(Items);
+export default connect(mapStateToProps,{fetchItems, fetchItem})(Items);

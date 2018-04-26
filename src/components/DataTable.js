@@ -18,7 +18,6 @@ const styles = theme => ({
 
 function SimpleTable(props) {
   const { classes } = props;
-    console.log(props)
   return (
     <Paper className={classes.root}>
       <Table className={classes.table}>

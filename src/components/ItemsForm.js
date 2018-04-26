@@ -42,7 +42,6 @@ class ItemsForm extends React.Component {
   }
   
   componentWillReceiveProps(nextProps) { 
-    console.log(nextProps);
     if(nextProps){
       suggestions = nextProps.tags.tags.map(suggestion => ({
         value:suggestion.tag,
