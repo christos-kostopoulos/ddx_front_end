@@ -57,7 +57,7 @@ export const fetchItem = (name) => (dispatch) => {
         payload: data
 
       })
-      console.log(data)
+      // console.log(data)
     });
 
 }

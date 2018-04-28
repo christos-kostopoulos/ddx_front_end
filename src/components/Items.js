@@ -20,10 +20,9 @@ class Items extends Component {
         }
     }
 
-    goToItem(name){
-        console.log(name)
+    goToItem(name,id){
+        console.log(id,name)
         this.props.fetchItem(name)
-        
     }
     
     render(){
@@ -43,6 +42,5 @@ class Items extends Component {
 const mapStateToProps = state => ({
     items:state.items.items,
     newItem:state.items.item, 
-    item:state.items.item
 })
 export default connect(mapStateToProps,{fetchItems, fetchItem})(Items);

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from 'material-ui/styles';
 import Table, { TableBody, TableCell, TableHead, TableRow } from 'material-ui/Table';
 import Paper from 'material-ui/Paper';
+import { Link } from 'react-router-dom';
 
 const styles = theme => ({
   root: {
@@ -33,12 +34,13 @@ function SimpleTable(props) {
         <TableBody>
           {props.data.map(n => {
             return (
-              <TableRow key={n.id} onClick={(e) => {props.onRowClick(n.name)} }>
+              <TableRow key={n.id} onClick={(e) => {props.onRowClick(n.name,n.id)} }>
                 <TableCell>{n.name}</TableCell>
                 <TableCell numeric>{n.calories}</TableCell>
                 <TableCell numeric>{n.fat}</TableCell>
                 <TableCell numeric>{n.carbs}</TableCell>
                 <TableCell numeric>{n.protein}</TableCell>
+                <TableCell><Link to={`/item/${n.id}`}>Detail</Link></TableCell>
               </TableRow>
             );
           })}
