@@ -1,41 +1,34 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import { connect } from 'react-redux';
-class ItemDetail extends React.Component{ 
+import { withStyles } from 'material-ui/styles';
+import Button from 'material-ui/Button';
 
-    constructor(props){
-        super(props)
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    input: {
+        display: 'none',
+    },
+});
 
-        this.state = { 
-            currentItem:{}
-        }
-    }
 
-    componentWillMount(){ 
-        let id = parseInt(this.props.match.params.id)
-        this.setState({
-            currentItem:this.props.items.items.find(item => item.id === id)
-        }) 
-    }
 
-    render(){
-
-        const { currentItem } = this.state;
-        console.log(currentItem)
-        return(
-            <div>
-                { currentItem.name }
-            </div>
-        )
-    }
-
+const ItemDetail = (props) => {
+    const { classes, currentItem, currentTags, handleDeleteButton } = props
+    return (
+        <div>
+            <div> {currentItem.name}</div>
+            <div> {currentTags.map(tag => tag.tag)}</div>
+            <Button 
+            variant="raised" 
+            color="secondary" 
+            className={classes.button}
+            onClick={handleDeleteButton}
+            >
+                Delete
+      </Button>
+        </div>
+    )
 }
 
-const mapStateToProps = (state) => {
-    return {
-        items: state.items
-    }
-}
-
-
-export default connect(mapStateToProps)(ItemDetail)
+export default withStyles(styles)(ItemDetail)

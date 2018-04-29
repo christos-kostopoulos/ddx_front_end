@@ -1,4 +1,4 @@
-import { FETCH_ITEMS, NEW_ITEM, FETCH_TAGS, FETCH_ITEM } from './types';
+import { FETCH_ITEMS, NEW_ITEM, FETCH_TAGS, FETCH_ITEM, DELETE_ITEM } from './types';
 
 export const fetchItems = () => (dispatch) => {
   fetch('http://localhost:5000/items')
@@ -41,23 +41,38 @@ export const fetchTags = () => (dispatch) => {
     }));
 }
 
-export const fetchItem = (name) => (dispatch) => {
-  fetch('http://localhost:5000/item/' + name, {
+export const fetchItem = (id) => (dispatch) => {
+  fetch('http://localhost:5000/item/' + id, {
     method: 'GET',
     headers: {
       'content-type': 'application/json'
     },
   })
-    .then(res => res.json(
-
-    ))
+    .then(res => res.json())
     .then(data => {
       dispatch({
         type: FETCH_ITEM,
         payload: data
 
       })
-      // console.log(data)
+      console.log(data)
     });
 
+}
+
+export const deleteItem = (id)=> (dispatch) => { 
+  fetch('http://localhost:5000/item/' + id, { 
+    method: 'DELETE', 
+    headers: { 
+      'content-type': 'application/json'
+    },
+  })
+  .then(res => res.json())
+  .then(data => {
+    dispatch({
+      type:DELETE_ITEM,
+      payload: data
+    })
+    console.log('NO GET',data)
+  })
 }

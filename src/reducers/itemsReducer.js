@@ -1,10 +1,9 @@
-import { FETCH_ITEMS,NEW_ITEM, FETCH_TAGS, FETCH_ITEM } from '../actions/types';
+import { FETCH_ITEMS,NEW_ITEM, FETCH_TAGS, FETCH_ITEM, DELETE_ITEM } from '../actions/types';
 
 const initialState = { 
     items:[],
     tags: [],
     item: {},
-    item:{}
 }
 
 export default function(state = initialState, action) { 
@@ -25,6 +24,11 @@ export default function(state = initialState, action) {
             tags:action.payload
         }
         case FETCH_ITEM:
+        return { 
+            ...state,
+            item:action.payload
+        }
+        case DELETE_ITEM:
         return { 
             ...state,
             item:action.payload
