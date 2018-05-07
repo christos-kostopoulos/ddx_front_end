@@ -11,10 +11,12 @@ class Item extends React.Component{
 
         this.state = { 
             currentItem:{},
-            currentTags:[]
+            currentTags:[],
+            updateView: false
         }
 
         this.deleteItem = this.deleteItem.bind(this);
+        this.updateItem = this.updateItem.bind(this);
     }
 
     componentWillMount(){ 
@@ -29,6 +31,13 @@ class Item extends React.Component{
             currentItem:nextProps.item.item,
             currentTags:nextProps.tags.tags
         })
+    }
+
+    updateItem() { 
+        this.setState({
+            updateView:true
+        })
+
     }
 
     deleteItem() { 
@@ -47,6 +56,7 @@ class Item extends React.Component{
                currentItem = {currentItem}
                currentTags = {currentTags}
                handleDeleteButton = { this.deleteItem }
+               handleUpdatebutton = { this.updateItem }
                />
             </div>
         )

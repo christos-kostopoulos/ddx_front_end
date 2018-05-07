@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import { connect } from 'react-redux'
+import { connect,dispatch } from 'react-redux'
 import { fetchItems,fetchItem } from '../actions/itemsActions'
 import SimpleTable  from './DataTable'
 class Items extends Component { 
@@ -11,7 +11,7 @@ class Items extends Component {
     }
 
     componentWillMount() { 
-        this.props.fetchItems();
+        this.props.dispatchFetchItems();
     }
 
     componentWillReceiveProps(nextProps){
@@ -22,15 +22,14 @@ class Items extends Component {
 
     goToItem(name,id){
         console.log(id,name)
-        this.props.fetchItem(name)
+        // this.props.dispatchFetchItem(name)
     }
     
     render(){
-        const items = this.props.items
         return(
             <div>
                 <SimpleTable 
-                data={items}
+                data={this.props.items}
                 onRowClick={this.goToItem}
                 />
             </div>
@@ -38,9 +37,19 @@ class Items extends Component {
     }
 }
 
-
 const mapStateToProps = state => ({
     items:state.items.items,
     newItem:state.items.item, 
 })
-export default connect(mapStateToProps,{fetchItems, fetchItem})(Items);
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+      dispatchFetchItems: () => {
+        dispatch(fetchItems())
+      },
+      dispatchFetchItem: (name) => { 
+          dispatch(fetchItem(name))
+      }
+    }
+  }
+export default connect(mapStateToProps,mapDispatchToProps)(Items);

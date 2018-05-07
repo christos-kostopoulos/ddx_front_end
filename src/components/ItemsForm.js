@@ -73,6 +73,7 @@ class ItemsForm extends React.Component {
       [name]: value
     });
   }
+  
   render() {
     const { classes } = this.props;
     return (

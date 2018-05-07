@@ -14,19 +14,29 @@ const styles = theme => ({
 
 
 const ItemDetail = (props) => {
-    const { classes, currentItem, currentTags, handleDeleteButton } = props
+    const { classes, currentItem, currentTags, handleDeleteButton, handleUpdatebutton } = props
     return (
         <div>
             <div> {currentItem.name}</div>
+            <div>{currentItem.risk_factors}</div>
             <div> {currentTags.map(tag => tag.tag)}</div>
-            <Button 
-            variant="raised" 
-            color="secondary" 
-            className={classes.button}
-            onClick={handleDeleteButton}
+
+            <Button
+                variant="raised"
+                color="secondary"
+                className={classes.button}
+                onClick={handleDeleteButton}
             >
                 Delete
-      </Button>
+            </Button>
+            <Button
+                variant="raised"
+                color="primary"
+                className={classes.button}
+                onClick={handleUpdatebutton}
+            >
+                Update
+            </Button>
         </div>
     )
 }

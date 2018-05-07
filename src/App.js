@@ -105,7 +105,7 @@ const styles = theme => ({
 
 class App extends React.Component {
   state = {
-    open: false,
+    open: true,
     anchor: 'left',
   };
 
