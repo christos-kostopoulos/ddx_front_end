@@ -22,14 +22,14 @@ class Item extends React.Component{
     componentWillMount(){ 
         let id = parseInt(this.props.match.params.id)
         this.props.fetchItem(id)
-      
+        console.log(this.props)
     }
 
     componentWillReceiveProps(nextProps){
         // console.log(nextProps)
         this.setState({
             currentItem:nextProps.item.item,
-            currentTags:nextProps.tags.tags
+            currentTags:nextProps.item.tags
         })
     }
 
@@ -48,7 +48,6 @@ class Item extends React.Component{
     render(){
         const { currentTags } = this.state;
         const { currentItem } = this.state
-        // console.log(this.state.currentItem, currentTags)
         
         return(
             <div>
@@ -66,8 +65,8 @@ class Item extends React.Component{
 
 const mapStateToProps = (state) => {
     return {
-        item: state.items.item[0],
-        tags:state.items.item[1]
+       item:state.item,
+       items:state.items
     }
 }
 

@@ -55,7 +55,6 @@ export const fetchItem = (id) => (dispatch) => {
         payload: data
 
       })
-      console.log(data)
     });
 
 }
@@ -73,6 +72,5 @@ export const deleteItem = (id)=> (dispatch) => {
       type:DELETE_ITEM,
       payload: data
     })
-    console.log('NO GET',data)
   })
 }
