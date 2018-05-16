@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import { newItem, fetchTags } from '../actions/itemsActions'
-import { connect } from 'react-redux'
+import { newItem, updateItem, fetchTags } from '../actions/itemsActions'
+import { connect, dispatch } from 'react-redux'
 import TextField from 'material-ui/TextField';
 import { withStyles } from 'material-ui/styles';
 import Divider from 'material-ui/Divider';
@@ -35,10 +35,11 @@ class ItemsForm extends React.Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleUpdate = this.handleUpdate.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchTags()
+    this.props.dispatchFetchTags()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -60,7 +61,7 @@ class ItemsForm extends React.Component {
     event.preventDefault();
     const data = { risk_factors: this.state.risk_factors, laboratory: this.state.laboratory, tag: this.state.tag, illustration: this.state.illustration, medicine: this.state.medicine, tests: this.state.tests }
     console.log(this.state)
-    this.props.newItem(data, this.state.name)
+    this.props.dispatchNewItem(data, this.state.name)
 
   }
 
@@ -74,9 +75,16 @@ class ItemsForm extends React.Component {
     });
   }
 
+  handleUpdate = id => event => {
+    event.preventDefault()
+    console.log(id)
+    const data = { risk_factors: this.state.risk_factors, laboratory: this.state.laboratory, tag: this.state.tag, illustration: this.state.illustration, medicine: this.state.medicine, tests: this.state.tests }
+    console.log(data)
+    this.props.dispatchUpdateItem(data, id)
+  }
+
   render() {
-    console.log(this.props.currentItem)
-    const { classes, updateView ,currentItem} = this.props;
+    const { classes, updateView, currentTags, currentItem } = this.props;
     return (
       <Paper >
         <div className={classes.formHeader}>
@@ -84,9 +92,10 @@ class ItemsForm extends React.Component {
         </div>
         <Divider />
         <div className={classes.formContainer}>
-          <form className={classes.container} onSubmit={this.handleSubmit}>
+          <form className={classes.container} onSubmit={updateView ? this.handleUpdate(currentItem.id) : this.handleSubmit}>
+
             <TextField
-              defaultValue={currentItem.name}
+              defaultValue={updateView && currentItem.name}
               id="name"
               label="Νόσος"
               className={classes.textField}
@@ -94,26 +103,32 @@ class ItemsForm extends React.Component {
               margin="normal"
               name="name"
             />
+
             <TextField
               id="name"
+              defaultValue={updateView && currentItem.risk_factors}
               label="Παράγοντες Κινδύνου"
               className={classes.textField}
               onChange={this.handleInputChange}
               margin="normal"
               name="risk_factors"
             />
+
             <TextField
               id="name"
+              defaultValue={updateView && currentItem.laboratory}
               label="Εργαστηριακά"
               className={classes.textField}
               onChange={this.handleInputChange}
               margin="normal"
               name="laboratory"
             />
+
             <div className={classes.root}>
+
               <TextField
                 fullWidth
-                value={this.state.tag}
+                value={this.state.tag ? this.state.tag : updateView && currentTags.map(tag => tag.tag)}
                 onChange={this.handleChange('tag')}
                 placeholder="Συμπτώματα"
                 name="react-select-chip-label"
@@ -133,6 +148,7 @@ class ItemsForm extends React.Component {
                 }}
               />
             </div>
+
             <TextField
               id="name"
               label="Απεικονιστικά"
@@ -141,6 +157,7 @@ class ItemsForm extends React.Component {
               margin="normal"
               name="illustration"
             />
+
             <TextField
               id="name"
               label="Φάρμακα"
@@ -149,6 +166,7 @@ class ItemsForm extends React.Component {
               margin="normal"
               name="medicine"
             />
+
             <TextField
               id="name"
               label="Δοκιμασίες"
@@ -157,6 +175,7 @@ class ItemsForm extends React.Component {
               margin="normal"
               name="tests"
             />
+
             <div className={classes.formFooter}>
               {!updateView ?
                 <Button variant="raised" color="primary" type="submit">submit</Button> :
@@ -174,7 +193,21 @@ const mapStateToProps = state => ({
   tags: state.items.tags
 })
 
-export default connect(mapStateToProps, { newItem, fetchTags })(withStyles(styles)(ItemsForm));
+const mapDispatchToProps = (dispatch) => {
+  return {
+    dispatchNewItem: (data,name) => {
+      dispatch(newItem(data,name))
+    },
+    dispatchFetchTags: () => {
+      dispatch(fetchTags())
+    },
+    dispatchUpdateItem: (data, id) => {
+      dispatch(updateItem(data, id))
+    }
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(ItemsForm));
 
 
 class Option extends React.Component {

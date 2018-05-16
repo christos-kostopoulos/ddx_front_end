@@ -18,9 +18,9 @@ const ItemDetail = (props) => {
     return (
         
         <div>
-            <div> {currentItem.name}</div>
-            <div>{currentItem.risk_factors}</div>
-            <div> {currentTags.map(tag => tag.tag)}</div>
+            <div> { currentItem.name }</div>
+            <div>{ currentItem.risk_factors }</div>
+            <div> { currentTags.map(tag => tag.tag) }</div>
 
             <Button
                 variant="raised"

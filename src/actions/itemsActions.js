@@ -1,4 +1,4 @@
-import { FETCH_ITEMS, NEW_ITEM, FETCH_TAGS, FETCH_ITEM, DELETE_ITEM } from './types';
+import { FETCH_ITEMS, NEW_ITEM, FETCH_TAGS, FETCH_ITEM, DELETE_ITEM, UPDATE_ITEM } from './types';
 
 export const fetchItems = () => (dispatch) => {
   fetch('http://localhost:5000/items')
@@ -73,4 +73,21 @@ export const deleteItem = (id)=> (dispatch) => {
       payload: data
     })
   })
+}
+
+export const updateItem = (itemData,id)=>(dispatch)=> { 
+  fetch('http://localhost:5000/item/' + id, { 
+    method: 'PUT',
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(itemData)
+  })
+    .then(res => res.json())
+    .then(item =>
+      dispatch({
+        type: UPDATE_ITEM,
+        payload: item
+      })
+    );
 }

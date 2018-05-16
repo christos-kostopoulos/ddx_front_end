@@ -62,6 +62,7 @@ class Item extends React.Component {
                     <ItemsForm 
                         updateView = {this.state.updateView}
                         currentItem={currentItem}
+                        currentTags = {currentTags}
                     />
                 }
             </div>
