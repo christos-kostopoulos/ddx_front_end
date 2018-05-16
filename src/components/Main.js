@@ -17,6 +17,7 @@ const Main = () => (
       <Route path='/items' component={Items}/>
       <Route path='/create' component={ItemsForm}/>
       <Route path='/item/:id' component={Item} />
+      
     </Switch>
   </main>
 )

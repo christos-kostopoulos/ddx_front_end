@@ -16,6 +16,7 @@ const styles = theme => ({
 const ItemDetail = (props) => {
     const { classes, currentItem, currentTags, handleDeleteButton, handleUpdatebutton } = props
     return (
+        
         <div>
             <div> {currentItem.name}</div>
             <div>{currentItem.risk_factors}</div>

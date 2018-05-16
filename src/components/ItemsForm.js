@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from 'material-ui/Button';
-import { newItem,fetchTags } from '../actions/itemsActions'
+import { newItem, fetchTags } from '../actions/itemsActions'
 import { connect } from 'react-redux'
 import TextField from 'material-ui/TextField';
 import { withStyles } from 'material-ui/styles';
@@ -37,28 +37,28 @@ class ItemsForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
   }
 
-  componentWillMount(){
-      this.props.fetchTags()
+  componentWillMount() {
+    this.props.fetchTags()
   }
-  
-  componentWillReceiveProps(nextProps) { 
-    if(nextProps){
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps) {
       suggestions = nextProps.tags.tags.map(suggestion => ({
-        value:suggestion.tag,
-        label:suggestion.tag
+        value: suggestion.tag,
+        label: suggestion.tag
       }))
     }
-}
+  }
 
   handleChange = name => value => {
     this.setState({
       [name]: value,
     });
   };
-  
+
   handleSubmit(event) {
     event.preventDefault();
-    const data = { risk_factors: this.state.risk_factors, laboratory: this.state.laboratory, tag: this.state.tag,illustration:this.state.illustration,medicine:this.state.medicine,tests:this.state.tests }
+    const data = { risk_factors: this.state.risk_factors, laboratory: this.state.laboratory, tag: this.state.tag, illustration: this.state.illustration, medicine: this.state.medicine, tests: this.state.tests }
     console.log(this.state)
     this.props.newItem(data, this.state.name)
 
@@ -73,104 +73,105 @@ class ItemsForm extends React.Component {
       [name]: value
     });
   }
-  
+
   render() {
-    const { classes } = this.props;
+    console.log(this.props.currentItem)
+    const { classes, updateView ,currentItem} = this.props;
     return (
       <Paper >
-      <div className={classes.formHeader}>
-      <Typography variant="headline" align="center" className={classes.formHeaderText}>Φόρμα καταχώρησης νόσου</Typography>
-      </div>
-      <Divider />
-      <div className={classes.formContainer}>
-      <form className={classes.container} onSubmit={this.handleSubmit}>
-      <TextField
-          id="name"
-          label="Νόσος"
-          className={classes.textField}
-          onChange={this.handleInputChange}
-          margin="normal"
-          name="name"
-        />
-        <TextField
-          id="name"
-          label="Παράγοντες Κινδύνου"
-          className={classes.textField}
-          onChange={this.handleInputChange}
-          margin="normal"
-          name="risk_factors"
-        />
-        <TextField
-          id="name"
-          label="Εργαστηριακά"
-          className={classes.textField}
-          onChange={this.handleInputChange}
-          margin="normal"
-          name="laboratory"
-        />
-         <div className={classes.root}>
-        <TextField
-          fullWidth
-          value={this.state.tag}
-          onChange={this.handleChange('tag')}
-          placeholder="Συμπτώματα"
-          name="react-select-chip-label"
-          InputLabelProps={{
-            shrink: true,
-          }}
-          InputProps={{
-            inputComponent: SelectWrapped,
-            inputProps: {
-              classes,
-              multi: true,
-              instanceId: 'react-select-chip-label',
-              id: 'react-select-chip-label',
-              simpleValue: true,
-              options: suggestions,
-            },
-          }}
-        />
-      </div>
-        <TextField
-          id="name"
-          label="Απεικονιστικά"
-          className={classes.textField}
-          onChange={this.handleInputChange}
-          margin="normal"
-          name="illustration"
-        />
-       <TextField
-          id="name"
-          label="Φάρμακα"
-          className={classes.textField}
-          onChange={this.handleInputChange}
-          margin="normal"
-          name="medicine"
-        />
-        <TextField
-          id="name"
-          label="Δοκιμασίες"
-          className={classes.textField}
-          onChange={this.handleInputChange}
-          margin="normal"
-          name="tests"
-        />
-        <div className={classes.formFooter}>
-          <Button variant="raised" color="primary" type="submit">
-            submit
-          </Button>
+        <div className={classes.formHeader}>
+          <Typography variant="headline" align="center" className={classes.formHeaderText}>Φόρμα καταχώρησης νόσου</Typography>
         </div>
-      </form>
-
-    
-      </div>
+        <Divider />
+        <div className={classes.formContainer}>
+          <form className={classes.container} onSubmit={this.handleSubmit}>
+            <TextField
+              defaultValue={currentItem.name}
+              id="name"
+              label="Νόσος"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              name="name"
+            />
+            <TextField
+              id="name"
+              label="Παράγοντες Κινδύνου"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              name="risk_factors"
+            />
+            <TextField
+              id="name"
+              label="Εργαστηριακά"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              name="laboratory"
+            />
+            <div className={classes.root}>
+              <TextField
+                fullWidth
+                value={this.state.tag}
+                onChange={this.handleChange('tag')}
+                placeholder="Συμπτώματα"
+                name="react-select-chip-label"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                InputProps={{
+                  inputComponent: SelectWrapped,
+                  inputProps: {
+                    classes,
+                    multi: true,
+                    instanceId: 'react-select-chip-label',
+                    id: 'react-select-chip-label',
+                    simpleValue: true,
+                    options: suggestions,
+                  },
+                }}
+              />
+            </div>
+            <TextField
+              id="name"
+              label="Απεικονιστικά"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              name="illustration"
+            />
+            <TextField
+              id="name"
+              label="Φάρμακα"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              name="medicine"
+            />
+            <TextField
+              id="name"
+              label="Δοκιμασίες"
+              className={classes.textField}
+              onChange={this.handleInputChange}
+              margin="normal"
+              name="tests"
+            />
+            <div className={classes.formFooter}>
+              {!updateView ?
+                <Button variant="raised" color="primary" type="submit">submit</Button> :
+                <Button variant="raised" color="primary" type="submit">Update</Button>
+              }
+            </div>
+          </form>
+        </div>
       </Paper>
     );
   }
 }
 
 const mapStateToProps = state => ({
-      tags:state.items.tags
+  tags: state.items.tags
 })
 
 export default connect(mapStateToProps, { newItem, fetchTags })(withStyles(styles)(ItemsForm));
