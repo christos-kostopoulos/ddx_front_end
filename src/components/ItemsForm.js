@@ -48,6 +48,7 @@ class ItemsForm extends React.Component {
         value: suggestion.tag,
         label: suggestion.tag
       }))
+      this.setState(this.props.currentItem)
     }
   }
 
@@ -77,14 +78,14 @@ class ItemsForm extends React.Component {
 
   handleUpdate = id => event => {
     event.preventDefault()
-    console.log(id)
-    const data = { risk_factors: this.state.risk_factors, laboratory: this.state.laboratory, tag: this.state.tag, illustration: this.state.illustration, medicine: this.state.medicine, tests: this.state.tests }
-    console.log(data)
+    console.log(this.state)
+    const data = { name: this.state.name, risk_factors: this.state.risk_factors, laboratory: this.state.laboratory, tag: this.state.tag, illustration: this.state.illustration, medicine: this.state.medicine, tests: this.state.tests }
     this.props.dispatchUpdateItem(data, id)
   }
 
   render() {
     const { classes, updateView, currentTags, currentItem } = this.props;
+    console.log(this.state)
     return (
       <Paper >
         <div className={classes.formHeader}>
@@ -102,6 +103,7 @@ class ItemsForm extends React.Component {
               onChange={this.handleInputChange}
               margin="normal"
               name="name"
+            
             />
 
             <TextField
