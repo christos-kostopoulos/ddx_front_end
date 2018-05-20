@@ -1,18 +1,18 @@
 import React from 'react';
-import Button from 'material-ui/Button';
+import Button from '@material-ui/core/Button';
 import { newItem, updateItem, fetchTags } from '../actions/itemsActions'
 import { connect, dispatch } from 'react-redux'
-import TextField from 'material-ui/TextField';
-import { withStyles } from 'material-ui/styles';
-import Divider from 'material-ui/Divider';
-import Paper from 'material-ui/Paper';
-import Typography from 'material-ui/Typography';
-import { MenuItem } from 'material-ui/Menu';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { MenuItem } from '@material-ui/core/Menu';
 import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
 import CancelIcon from '@material-ui/icons/Cancel';
 import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import ClearIcon from '@material-ui/icons/Clear';
-import Chip from 'material-ui/Chip';
+import Chip from '@material-ui/core/Chip';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
 import FormStyles from './FormStyles'

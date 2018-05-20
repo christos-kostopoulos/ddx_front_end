@@ -23,7 +23,9 @@ class Item extends React.Component {
     componentWillMount() {
         let id = parseInt(this.props.match.params.id)
         this.props.fetchItem(id)
+        this.props.match.params && this.setState({updateView:true})
         console.log(this.props)
+        
     }
 
     componentWillReceiveProps(nextProps) {
@@ -52,19 +54,11 @@ class Item extends React.Component {
 
         return (
             <div>
-                {!this.state.updateView ?
-                    <ItemDetail
-                        currentItem={currentItem}
-                        currentTags={currentTags}
-                        handleDeleteButton={this.deleteItem}
-                        handleUpdatebutton={this.updateItem}
-                    /> :
                     <ItemsForm 
                         updateView = {this.state.updateView}
                         currentItem={currentItem}
                         currentTags = {currentTags}
                     />
-                }
             </div>
         )
     }

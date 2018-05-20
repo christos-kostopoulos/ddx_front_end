@@ -1,7 +1,7 @@
 import React from 'react';
 import CardSelection from './CardSelection';
-import { withStyles } from 'material-ui/styles';
-import Grid from 'material-ui/Grid';
+import { withStyles } from '@material-ui/core/styles';
+import Grid from '@material-ui/core/Grid';
 
 const styles = theme => ({
     root: {
